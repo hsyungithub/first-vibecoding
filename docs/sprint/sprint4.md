@@ -57,6 +57,7 @@
 ## 검증 결과
 
 - [Sprint 4 Playwright 검증 보고서](sprint4/playwright-report.md)
+- [코드 리뷰 보고서](sprint4/code-review.md)
 
 ---
 
