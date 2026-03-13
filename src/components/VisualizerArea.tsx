@@ -1,12 +1,13 @@
 "use client";
 
-import { BAR_VALUE_MAX } from "@/types";
+import { BAR_VALUE_MAX, BarState, BAR_STATE_COLORS } from "@/types";
 
 interface VisualizerAreaProps {
   array: number[];
+  barStates: BarState[];
 }
 
-export default function VisualizerArea({ array }: VisualizerAreaProps) {
+export default function VisualizerArea({ array, barStates }: VisualizerAreaProps) {
   return (
     <section
       className="flex-1 flex items-end justify-center gap-px px-4 py-6 bg-gray-950"
@@ -15,11 +16,12 @@ export default function VisualizerArea({ array }: VisualizerAreaProps) {
       {array.map((value, index) => {
         // 막대 높이: 값 / 최대값 × 100% (컨테이너 기준)
         const heightPercent = (value / BAR_VALUE_MAX) * 100;
+        const colorClass = BAR_STATE_COLORS[barStates[index] ?? 'default'];
 
         return (
           <div
             key={index}
-            className="bg-blue-500 rounded-t-sm"
+            className={`${colorClass} rounded-t-sm`}
             style={{
               height: `${heightPercent}%`,
               flex: "1 1 0%",
