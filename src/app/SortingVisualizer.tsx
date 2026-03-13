@@ -7,6 +7,7 @@ import ControlBar from "@/components/ControlBar";
 import { generateRandomArray } from "@/utils/array";
 import { completionAnimation } from "@/utils/animation";
 import { ALGORITHM_MAP } from "@/utils/algorithms";
+import { useTheme } from "@/hooks/useTheme";
 import { AlgorithmType, BarState, ARRAY_SIZE_DEFAULT, SPEED_DEFAULT } from "@/types";
 
 export default function SortingVisualizer() {
@@ -17,24 +18,22 @@ export default function SortingVisualizer() {
   const [animationSpeed, setAnimationSpeed] = useState<number>(SPEED_DEFAULT);
   const [isSorting, setIsSorting] = useState<boolean>(false);
 
-  // 비동기 루프에서 최신 값을 참조하기 위한 ref
+  const { theme, toggleTheme } = useTheme();
+
   const isSortingRef = useRef<boolean>(false);
   const shouldStopRef = useRef<boolean>(false);
   const speedRef = useRef<number>(SPEED_DEFAULT);
 
-  // animationSpeed state 변경 시 speedRef 동기화 (정렬 중 실시간 반영)
   useEffect(() => {
     speedRef.current = animationSpeed;
   }, [animationSpeed]);
 
-  // 배열 초기화 헬퍼
   const initArray = (size: number) => {
     const newArr = generateRandomArray(size);
     setArray(newArr);
     setBarStates(new Array(size).fill('default'));
   };
 
-  // 초기 배열 생성 및 배열 크기 변경 시 자동 재생성
   useEffect(() => {
     initArray(arraySize);
   }, [arraySize]);
@@ -44,11 +43,9 @@ export default function SortingVisualizer() {
   };
 
   const handleReset = () => {
-    // 정렬 중이면 중단 신호 설정
     shouldStopRef.current = true;
     isSortingRef.current = false;
     setIsSorting(false);
-    // 새 배열 생성
     initArray(arraySize);
   };
 
@@ -56,10 +53,7 @@ export default function SortingVisualizer() {
     if (isSortingRef.current) return;
 
     const sortFn = ALGORITHM_MAP[selectedAlgorithm];
-    if (!sortFn) {
-      // 아직 구현되지 않은 알고리즘
-      return;
-    }
+    if (!sortFn) return;
 
     isSortingRef.current = true;
     shouldStopRef.current = false;
@@ -67,7 +61,6 @@ export default function SortingVisualizer() {
 
     await sortFn(array, setArray, setBarStates, speedRef, shouldStopRef);
 
-    // 정상 완료 시 초록 웨이브 애니메이션
     if (!shouldStopRef.current) {
       await completionAnimation(array.length, setBarStates);
     }
@@ -77,7 +70,7 @@ export default function SortingVisualizer() {
   };
 
   return (
-    <div className="h-screen bg-gray-950 flex flex-col">
+    <div className="h-screen bg-white dark:bg-gray-950 flex flex-col transition-colors">
       <TopNav
         selectedAlgorithm={selectedAlgorithm}
         onAlgorithmChange={setSelectedAlgorithm}
@@ -86,6 +79,8 @@ export default function SortingVisualizer() {
         animationSpeed={animationSpeed}
         onAnimationSpeedChange={setAnimationSpeed}
         isSorting={isSorting}
+        theme={theme}
+        onThemeToggle={toggleTheme}
       />
       <VisualizerArea array={array} barStates={barStates} />
       <ControlBar
