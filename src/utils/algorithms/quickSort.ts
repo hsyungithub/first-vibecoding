@@ -1,4 +1,4 @@
-import { sleep, speedToMs } from "@/utils/animation";
+import { sleep, speedToMs, markComparing, markSwapping, markSorted, markDefault } from "@/utils/animation";
 import { BarState } from "@/types";
 import { SortFn } from "./types";
 
@@ -35,22 +35,12 @@ async function quickSortHelper(
 
   let i = low - 1;
 
-  // 피벗을 노란색으로 강조
-  setBarStates((prev) => {
-    const next = [...prev];
-    next[high] = 'swapping';
-    return next;
-  });
+  setBarStates(markSwapping(high)); // 피벗 노란색
 
   for (let j = low; j < high; j++) {
     if (stopRef.current) return;
 
-    setBarStates((prev) => {
-      const next = [...prev];
-      next[j] = 'comparing';
-      return next;
-    });
-
+    setBarStates(markComparing(j));
     await sleep(speedToMs(speedRef.current));
     if (stopRef.current) return;
 
@@ -58,30 +48,24 @@ async function quickSortHelper(
       i++;
       [arr[i], arr[j]] = [arr[j], arr[i]];
       setArray([...arr]);
-
       setBarStates((prev) => {
         const next = [...prev];
         next[i] = 'swapping';
         next[j] = 'default';
         return next;
       });
-
       await sleep(speedToMs(speedRef.current));
       if (stopRef.current) return;
     } else {
-      setBarStates((prev) => {
-        const next = [...prev];
-        next[j] = 'default';
-        return next;
-      });
+      setBarStates(markDefault(j));
     }
   }
 
-  // 피벗을 최종 위치로
   const pivotIdx = i + 1;
   [arr[pivotIdx], arr[high]] = [arr[high], arr[pivotIdx]];
   setArray([...arr]);
 
+  // 피벗 sorted 확정, 나머지 swapping 상태 복원
   setBarStates((prev) => {
     const next = [...prev];
     next[pivotIdx] = 'sorted';

@@ -1,4 +1,4 @@
-import { sleep, speedToMs } from "@/utils/animation";
+import { sleep, speedToMs, markComparing, markSwapping } from "@/utils/animation";
 import { BarState } from "@/types";
 import { SortFn } from "./types";
 
@@ -43,31 +43,13 @@ async function mergeAnimated(
   while (i < leftPart.length && j < rightPart.length) {
     if (stopRef.current) return;
 
-    const leftIdx = left + i;
-    const rightIdx = mid + 1 + j;
-
-    setBarStates((prev) => {
-      const next = [...prev];
-      next[leftIdx] = 'comparing';
-      next[rightIdx] = 'comparing';
-      return next;
-    });
-
+    setBarStates(markComparing(left + i, mid + 1 + j));
     await sleep(speedToMs(speedRef.current));
     if (stopRef.current) return;
 
-    if (leftPart[i] <= rightPart[j]) {
-      arr[k] = leftPart[i++];
-    } else {
-      arr[k] = rightPart[j++];
-    }
-
+    arr[k] = leftPart[i] <= rightPart[j] ? leftPart[i++] : rightPart[j++];
     setArray([...arr]);
-    setBarStates((prev) => {
-      const next = [...prev];
-      next[k] = 'swapping';
-      return next;
-    });
+    setBarStates(markSwapping(k));
     k++;
   }
 
@@ -75,11 +57,7 @@ async function mergeAnimated(
     if (stopRef.current) return;
     arr[k] = leftPart[i++];
     setArray([...arr]);
-    setBarStates((prev) => {
-      const next = [...prev];
-      next[k] = 'swapping';
-      return next;
-    });
+    setBarStates(markSwapping(k));
     k++;
     await sleep(speedToMs(speedRef.current));
   }
@@ -88,11 +66,7 @@ async function mergeAnimated(
     if (stopRef.current) return;
     arr[k] = rightPart[j++];
     setArray([...arr]);
-    setBarStates((prev) => {
-      const next = [...prev];
-      next[k] = 'swapping';
-      return next;
-    });
+    setBarStates(markSwapping(k));
     k++;
     await sleep(speedToMs(speedRef.current));
   }
@@ -100,9 +74,7 @@ async function mergeAnimated(
   // 병합 완료 구간 초록색
   setBarStates((prev) => {
     const next = [...prev];
-    for (let idx = left; idx <= right; idx++) {
-      next[idx] = 'sorted';
-    }
+    for (let idx = left; idx <= right; idx++) next[idx] = 'sorted';
     return next;
   });
 
