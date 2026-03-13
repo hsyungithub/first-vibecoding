@@ -10,11 +10,10 @@ interface VisualizerAreaProps {
 export default function VisualizerArea({ array, barStates }: VisualizerAreaProps) {
   return (
     <section
-      className="flex-1 flex items-end justify-center gap-px px-4 py-6 bg-gray-950"
+      className="flex-1 flex items-end justify-center gap-px px-4 py-6 bg-gray-50 dark:bg-gray-950 transition-colors"
       aria-label="정렬 시각화 영역"
     >
       {array.map((value, index) => {
-        // 막대 높이: 값 / 최대값 × 100% (컨테이너 기준)
         const heightPercent = (value / BAR_VALUE_MAX) * 100;
         const color = BAR_STATE_COLORS[barStates[index] ?? 'default'];
 

@@ -1,0 +1,40 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
+type Theme = "dark" | "light";
+
+export function useTheme() {
+  // 초기값 undefined — SSR/클라이언트 hydration 불일치 방지
+  // 실제 값은 마운트 후 useEffect에서 결정
+  const [theme, setTheme] = useState<Theme | undefined>(undefined);
+
+  // 마운트 시 저장된 값 또는 시스템 설정으로 초기화
+  useEffect(() => {
+    const stored = localStorage.getItem("theme") as Theme | null;
+    if (stored === "dark" || stored === "light") {
+      setTheme(stored);
+    } else {
+      setTheme(window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    }
+  }, []);
+
+  // theme 확정 후 <html> 클래스 및 localStorage 동기화
+  useEffect(() => {
+    if (theme === undefined) return;
+    const root = document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+
+  // theme이 확정되기 전엔 FOUC 스크립트가 적용한 값을 그대로 사용
+  const resolvedTheme: Theme = theme ?? "dark";
+
+  return { theme: resolvedTheme, toggleTheme };
+}
