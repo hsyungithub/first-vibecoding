@@ -827,8 +827,8 @@ git commit -m "docs: Sprint 5 Playwright 검증 보고서 추가"
 
 ## 검증 결과
 
-- [Sprint 5 Playwright 검증 보고서](sprint5/playwright-report.md) — (sprint-close 시 작성)
-- [코드 리뷰 보고서](sprint5/code-review.md) — (sprint-close 시 작성)
+- [코드 리뷰 보고서](sprint5/code-review.md) — 완료 (2026-03-13), Critical 0건 / Important 3건
+- Playwright UI 검증 — `npm run dev` 실행 후 수동 확인 필요 (수동 검증 항목 참고)
 
 ---
 
