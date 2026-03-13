@@ -5,7 +5,8 @@ import TopNav from "@/components/TopNav";
 import VisualizerArea from "@/components/VisualizerArea";
 import ControlBar from "@/components/ControlBar";
 import { generateRandomArray } from "@/utils/array";
-import { sleep, speedToMs, swap, completionAnimation } from "@/utils/animation";
+import { completionAnimation } from "@/utils/animation";
+import { ALGORITHM_MAP } from "@/utils/algorithms";
 import { AlgorithmType, BarState, ARRAY_SIZE_DEFAULT, SPEED_DEFAULT } from "@/types";
 
 export default function SortingVisualizer() {
@@ -54,60 +55,21 @@ export default function SortingVisualizer() {
   const handleStartSort = async () => {
     if (isSortingRef.current) return;
 
+    const sortFn = ALGORITHM_MAP[selectedAlgorithm];
+    if (!sortFn) {
+      // 아직 구현되지 않은 알고리즘
+      return;
+    }
+
     isSortingRef.current = true;
     shouldStopRef.current = false;
     setIsSorting(true);
 
-    // 현재 배열 복사 (로컬에서 정렬 진행)
-    let arr = [...array];
-    const n = arr.length;
-
-    // 버블 정렬 데모
-    outer: for (let i = 0; i < n - 1; i++) {
-      for (let j = 0; j < n - i - 1; j++) {
-        // 중단 신호 확인
-        if (shouldStopRef.current) break outer;
-
-        // 비교 중인 두 막대 빨간색 표시
-        setBarStates((prev) => {
-          const next = [...prev];
-          next[j] = 'comparing';
-          next[j + 1] = 'comparing';
-          return next;
-        });
-
-        await sleep(speedToMs(speedRef.current));
-        if (shouldStopRef.current) break outer;
-
-        if (arr[j] > arr[j + 1]) {
-          // 교환 시 노란색 표시
-          setBarStates((prev) => {
-            const next = [...prev];
-            next[j] = 'swapping';
-            next[j + 1] = 'swapping';
-            return next;
-          });
-
-          arr = swap(arr, j, j + 1);
-          setArray([...arr]);
-
-          await sleep(speedToMs(speedRef.current));
-          if (shouldStopRef.current) break outer;
-        }
-
-        // 비교 후 기본 색상 복원
-        setBarStates((prev) => {
-          const next = [...prev];
-          next[j] = 'default';
-          next[j + 1] = 'default';
-          return next;
-        });
-      }
-    }
+    await sortFn(array, setArray, setBarStates, speedRef, shouldStopRef);
 
     // 정상 완료 시 초록 웨이브 애니메이션
     if (!shouldStopRef.current) {
-      await completionAnimation(n, setBarStates);
+      await completionAnimation(array.length, setBarStates);
     }
 
     isSortingRef.current = false;

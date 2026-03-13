@@ -17,9 +17,9 @@
 
 | 항목 | 상태 |
 |------|------|
-| 전체 진행률 | 40% |
-| 현재 Phase | Phase 3 (예정) |
-| 다음 마일스톤 | 기본 알고리즘 시각화 완성 |
+| 전체 진행률 | 60% |
+| 현재 Phase | Phase 4 (예정) |
+| 다음 마일스톤 | 고급 알고리즘 시각화 완성 |
 | 시작일 | 2026-03-13 |
 | 예상 완료일 | 2026-05-22 |
 
@@ -206,37 +206,39 @@ Tailwind CSS를 이용한 전체 레이아웃 설계 및 랜덤 막대 배열 �
 
 ---
 
-## Phase 3: 기본 알고리즘 시각화 (Sprint 3) 📋
+## Phase 3: 기본 알고리즘 시각화 (Sprint 3) ✅
+
+**완료일:** 2026-03-13
 
 ### 목표
 버블 정렬, 선택 정렬, 삽입 정렬 3가지 기본 알고리즘의 시각화를 완성. 알고리즘 선택 드롭다운과 연동하여 사용자가 선택한 알고리즘으로 정렬 실행.
 
 ### 작업 목록
 
-- ⬜ **버블 정렬 (Bubble Sort) 시각화** (복잡도: 낮음, Must Have)
+- ✅ **버블 정렬 (Bubble Sort) 시각화** (복잡도: 낮음, Must Have)
   - `async bubbleSort(arr, setArray, setStates, speedRef, stopRef)` 구현
   - 인접 요소 비교 시 두 막대를 빨간색으로 변경
   - 스왑 발생 시 노란색으로 변경 후 교환
   - 각 패스 완료 시 마지막 요소부터 초록색으로 변경
 
-- ⬜ **선택 정렬 (Selection Sort) 시각화** (복잡도: 낮음, Must Have)
+- ✅ **선택 정렬 (Selection Sort) 시각화** (복잡도: 낮음, Must Have)
   - `async selectionSort(arr, setArray, setStates, speedRef, stopRef)` 구현
   - 현재 탐색 중인 요소를 빨간색으로 표시
   - 최솟값 후보를 별도 색상(노란색)으로 강조
   - 선택 완료 후 정렬된 위치의 요소를 초록색으로 변경
 
-- ⬜ **삽입 정렬 (Insertion Sort) 시각화** (복잡도: 중간, Must Have)
+- ✅ **삽입 정렬 (Insertion Sort) 시각화** (복잡도: 중간, Must Have)
   - `async insertionSort(arr, setArray, setStates, speedRef, stopRef)` 구현
   - 삽입할 요소를 빨간색으로 표시
   - 요소 이동(shift) 과정을 노란색으로 표시
   - 삽입 완료된 구간을 초록색으로 표시
 
-- ⬜ **알고리즘 선택 드롭다운 연동** (복잡도: 낮음, Must Have)
+- ✅ **알고리즘 선택 드롭다운 연동** (복잡도: 낮음, Must Have)
   - 드롭다운에서 알고리즘 선택 시 상태 업데이트
   - "정렬 시작" 버튼 클릭 시 선택된 알고리즘 함수 실행
-  - 알고리즘 매핑 객체: `{ 'bubble': bubbleSort, 'selection': selectionSort, ... }`
+  - 알고리즘 매핑 객체: `ALGORITHM_MAP` (`bubble`, `selection`, `insertion` 연동)
 
-- ⬜ **정렬 완료 애니메이션** (복잡도: 낮음, Should Have)
+- ✅ **정렬 완료 애니메이션** (복잡도: 낮음, Should Have)
   - 정렬 완료 후 왼쪽부터 오른쪽으로 순차적으로 초록색 전환
   - 각 막대 전환 간 짧은 딜레이 (20~50ms)로 "웨이브" 효과
 
