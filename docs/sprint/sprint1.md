@@ -647,6 +647,7 @@ git commit -m "fix: 반응형 레이아웃 브레이크포인트 조정"
 ## 검증 결과
 
 - [Sprint 1 배포 체크리스트](sprint1/deploy.md)
+- [코드 리뷰 보고서](sprint1/code-review.md)
 
 ### 자동 검증 요약 (2026-03-13)
 
