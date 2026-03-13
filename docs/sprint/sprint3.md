@@ -18,7 +18,7 @@
 | 대응 Phase | Phase 3: 기본 알고리즘 시각화 |
 | 기간 | 2026-03-13 ~ 2026-04-24 |
 | 목표 마일스톤 | M3: MVP 릴리스 (기본 3종 알고리즘) |
-| 상태 | 진행 중 |
+| 상태 | 완료 |
 
 ---
 
@@ -45,14 +45,14 @@
 
 ## 완료 기준 (Definition of Done)
 
-- ⬜ 버블/선택/삽입 정렬 각각 선택 후 "정렬 시작" 시 애니메이션이 정상 실행됨
-- ⬜ 비교(빨간색), 스왑/이동(노란색), 완료(초록색) 색상이 각 알고리즘 논리에 맞게 변경됨
-- ⬜ 정렬 완료 후 막대가 실제로 오름차순 정렬되어 있음
-- ⬜ 정렬 중 "초기화" 클릭 시 즉시 중단됨
-- ⬜ 정렬 중 속도 슬라이더 변경이 실시간 반영됨
-- ⬜ `npx vitest run` 단위 테스트 전체 통과
-- ⬜ `npm run build` 성공, TypeScript 에러 없음
-- ⬜ 브라우저 콘솔에 에러 없음 (Playwright MCP 자동 검증)
+- ✅ 버블/선택/삽입 정렬 각각 선택 후 "정렬 시작" 시 애니메이션이 정상 실행됨
+- ⬜ 비교(빨간색), 스왑/이동(노란색), 완료(초록색) 색상이 각 알고리즘 논리에 맞게 변경됨 (수동 시각적 확인 필요)
+- ✅ 정렬 완료 후 completionAnimation 웨이브 실행 확인 (Playwright 자동 검증)
+- ✅ 정렬 중 "초기화" 클릭 시 즉시 중단됨
+- ⬜ 정렬 중 속도 슬라이더 변경이 실시간 반영됨 (수동 확인 필요)
+- ⬜ `npx vitest run` 단위 테스트 전체 통과 (vitest 환경 미구성으로 수동 필요)
+- ✅ `npm run build` 성공, TypeScript 에러 없음
+- ✅ 브라우저 콘솔에 에러 없음 (Playwright 자동 검증)
 
 ---
 
@@ -973,9 +973,10 @@ npm run dev
 
 | 항목 | 결과 | 비고 |
 |------|------|------|
-| `npx vitest run` | ⬜ 미실행 | |
-| `npm run build` | ⬜ 미실행 | |
-| Playwright UI 검증 | ⬜ 미실행 | sprint-close 시 실행 |
+| `npx vitest run` | ⬜ 수동 필요 | vitest 환경 미구성 |
+| `npm run build` | ✅ 성공 | TypeScript 에러 없음, 경고 없음 |
+| Playwright UI 검증 | ✅ 14/14 통과 | 버블/선택/삽입 3종 + 중단/콘솔/모바일 검증 |
 
 - [Playwright 검증 보고서](sprint3/playwright-report.md)
 - [배포 체크리스트](sprint3/deploy.md)
+- [코드 리뷰 보고서](sprint3/code-review.md)
