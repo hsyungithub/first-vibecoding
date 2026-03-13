@@ -36,10 +36,10 @@ export const SPEED_DEFAULT = 5;
 /** 막대 상태 타입 */
 export type BarState = 'default' | 'comparing' | 'swapping' | 'sorted';
 
-/** 막대 상태별 색상 클래스 */
+/** 막대 상태별 파스텔 색상 (hex) */
 export const BAR_STATE_COLORS: Record<BarState, string> = {
-  default: 'bg-blue-500',
-  comparing: 'bg-red-500',
-  swapping: 'bg-yellow-400',
-  sorted: 'bg-green-500',
+  default: '#93b4d8',   // 파스텔 블루
+  comparing: '#e8a0a0', // 파스텔 레드
+  swapping: '#f5d08a',  // 파스텔 옐로
+  sorted: '#90c9a0',    // 파스텔 그린
 };

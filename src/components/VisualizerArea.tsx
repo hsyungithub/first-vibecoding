@@ -16,17 +16,18 @@ export default function VisualizerArea({ array, barStates }: VisualizerAreaProps
       {array.map((value, index) => {
         // 막대 높이: 값 / 최대값 × 100% (컨테이너 기준)
         const heightPercent = (value / BAR_VALUE_MAX) * 100;
-        const colorClass = BAR_STATE_COLORS[barStates[index] ?? 'default'];
+        const color = BAR_STATE_COLORS[barStates[index] ?? 'default'];
 
         return (
           <div
             key={index}
-            className={`${colorClass} rounded-t-sm`}
+            className="rounded-t-sm"
             style={{
               height: `${heightPercent}%`,
               flex: "1 1 0%",
               minWidth: "1px",
               maxWidth: "20px",
+              backgroundColor: color,
             }}
             aria-label={`막대 ${index + 1}: 높이 ${value}`}
           />
