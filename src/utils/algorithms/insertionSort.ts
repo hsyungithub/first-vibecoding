@@ -1,4 +1,4 @@
-import { sleep, speedToMs } from "@/utils/animation";
+import { sleep, speedToMs, markComparing, markSwapping, markSorted } from "@/utils/animation";
 import { SortFn } from "./types";
 
 /** 삽입 정렬 */
@@ -6,12 +6,7 @@ export const insertionSort: SortFn = async (arr, setArray, setBarStates, speedRe
   const current = [...arr];
   const n = current.length;
 
-  // 첫 번째 요소는 정렬된 상태로 시작
-  setBarStates((prev) => {
-    const next = [...prev];
-    next[0] = 'sorted';
-    return next;
-  });
+  setBarStates(markSorted(0));
 
   for (let i = 1; i < n; i++) {
     if (stopRef.current) break;
@@ -19,41 +14,20 @@ export const insertionSort: SortFn = async (arr, setArray, setBarStates, speedRe
     const key = current[i];
     let j = i - 1;
 
-    // 삽입할 요소 표시
-    setBarStates((prev) => {
-      const next = [...prev];
-      next[i] = 'comparing';
-      return next;
-    });
-
+    setBarStates(markComparing(i));
     await sleep(speedToMs(speedRef.current));
     if (stopRef.current) break;
 
-    // 삽입 위치 탐색 및 요소 이동
     while (j >= 0 && current[j] > key) {
       if (stopRef.current) break;
 
-      // 이동 중인 요소 표시
-      setBarStates((prev) => {
-        const next = [...prev];
-        next[j] = 'swapping';
-        next[j + 1] = 'swapping';
-        return next;
-      });
-
+      setBarStates(markSwapping(j, j + 1));
       current[j + 1] = current[j];
       setArray([...current]);
-
       await sleep(speedToMs(speedRef.current));
       if (stopRef.current) break;
 
-      // 이동 완료 후 색상 복원
-      setBarStates((prev) => {
-        const next = [...prev];
-        next[j + 1] = 'sorted';
-        return next;
-      });
-
+      setBarStates(markSorted(j + 1));
       j--;
     }
 
@@ -61,16 +35,9 @@ export const insertionSort: SortFn = async (arr, setArray, setBarStates, speedRe
 
     current[j + 1] = key;
     setArray([...current]);
-
-    // 삽입 완료 표시
-    setBarStates((prev) => {
-      const next = [...prev];
-      next[j + 1] = 'sorted';
-      return next;
-    });
+    setBarStates(markSorted(j + 1));
   }
 
-  // 모든 요소 정렬 완료 표시
   if (!stopRef.current) {
     setBarStates((prev) => prev.map(() => 'sorted'));
   }

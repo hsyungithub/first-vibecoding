@@ -1,5 +1,30 @@
 import { BarState, SPEED_MIN, SPEED_MAX } from "@/types";
 
+type SetBarStates = (updater: (prev: BarState[]) => BarState[]) => void;
+
+/** 지정 인덱스들을 특정 상태로 변경하는 updater를 반환 */
+function markAs(state: BarState, ...indices: number[]) {
+  return (prev: BarState[]): BarState[] => {
+    const next = [...prev];
+    indices.forEach((i) => { next[i] = state; });
+    return next;
+  };
+}
+
+/** 지정 인덱스들을 comparing(빨간색)으로 표시 */
+export const markComparing = (...indices: number[]) => markAs('comparing', ...indices);
+
+/** 지정 인덱스들을 swapping(노란색)으로 표시 */
+export const markSwapping = (...indices: number[]) => markAs('swapping', ...indices);
+
+/** 지정 인덱스들을 sorted(초록색)으로 표시 */
+export const markSorted = (...indices: number[]) => markAs('sorted', ...indices);
+
+/** 지정 인덱스들을 default(기본색)으로 복원 */
+export const markDefault = (...indices: number[]) => markAs('default', ...indices);
+
+export type { SetBarStates };
+
 /** 지정된 밀리초만큼 대기 */
 export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
