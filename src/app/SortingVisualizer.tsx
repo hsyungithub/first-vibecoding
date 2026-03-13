@@ -9,6 +9,7 @@ import { completionAnimation } from "@/utils/animation";
 import { ALGORITHM_MAP } from "@/utils/algorithms";
 import { useTheme } from "@/hooks/useTheme";
 import { AlgorithmType, BarState, ARRAY_SIZE_DEFAULT, SPEED_DEFAULT } from "@/types";
+import AlgorithmInfo from "@/components/AlgorithmInfo";
 
 export default function SortingVisualizer() {
   const [array, setArray] = useState<number[]>([]);
@@ -82,6 +83,7 @@ export default function SortingVisualizer() {
         theme={theme}
         onThemeToggle={toggleTheme}
       />
+      <AlgorithmInfo algorithm={selectedAlgorithm} />
       <VisualizerArea array={array} barStates={barStates} />
       <ControlBar
         onGenerateArray={handleGenerateArray}
