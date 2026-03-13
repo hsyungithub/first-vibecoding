@@ -27,3 +27,19 @@ export const ARRAY_SIZE_DEFAULT = 50;
 /** 막대 높이 값 범위 */
 export const BAR_VALUE_MIN = 5;
 export const BAR_VALUE_MAX = 500;
+
+/** 애니메이션 속도 범위 */
+export const SPEED_MIN = 1;
+export const SPEED_MAX = 10;
+export const SPEED_DEFAULT = 5;
+
+/** 막대 상태 타입 */
+export type BarState = 'default' | 'comparing' | 'swapping' | 'sorted';
+
+/** 막대 상태별 색상 클래스 */
+export const BAR_STATE_COLORS: Record<BarState, string> = {
+  default: 'bg-blue-500',
+  comparing: 'bg-red-500',
+  swapping: 'bg-yellow-400',
+  sorted: 'bg-green-500',
+};
