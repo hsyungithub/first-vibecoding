@@ -71,3 +71,47 @@
 | `src/__tests__/utils/algorithms/quickSort.test.ts` | partitionSync 4개 케이스 |
 | `src/__tests__/utils/algorithms/mergeSort.test.ts` | mergeSync 4개 케이스 |
 | `vitest.config.ts` | Vitest 테스트 환경 설정 |
+
+---
+
+## 📊 실제 추적 기록
+
+### 작업 시간
+
+| 항목 | 시간 |
+|------|------|
+| 시작 | 2026-03-13 15:21 (Sprint 3 완료 직후) |
+| 첫 구현 커밋 | 2026-03-13 15:32 |
+| 종료 | 2026-03-13 15:58 (Sprint 4 마무리 완료) |
+| **실제 소요 시간** | **약 37분** |
+| 계획 소요 시간 | 미설정 |
+
+### 변경 통계 (`ec6d7a1..b361b46`)
+
+| 항목 | 수치 |
+|------|------|
+| 변경된 파일 수 | 14개 |
+| 추가된 라인 수 | +1,878줄 |
+| 삭제된 라인 수 | -22줄 |
+| 순 변경량 | +1,856줄 |
+
+### 주요 커밋
+
+| 해시 | 시각 | 메시지 |
+|------|------|--------|
+| `c6bf726` | 15:32 | chore: Vitest 테스트 환경 설정 |
+| `a3ed1df` | 15:34 | feat: 퀵 정렬 구현 (partitionSync 유닛 테스트 포함) |
+| `da6253f` | 15:37 | feat: 병합 정렬 구현 (mergeSync 유닛 테스트 포함) |
+| `98e7b31` | 15:39 | feat: ALGORITHM_MAP에 퀵/병합 정렬 추가 |
+| `52c9751` | 15:45 | refactor: 막대 색상을 Tailwind 클래스에서 파스텔 hex 색상으로 변경 |
+| `9f4f301` | 15:46 | docs: Sprint 4 마무리 - ROADMAP 완료 표시, sprint4.md 및 deploy.md 생성 |
+| `b361b46` | 15:58 | docs: Sprint 4 코드 리뷰 보고서 추가 |
+
+### 계획 대비 실제
+
+| 항목 | 내용 |
+|------|------|
+| 계획 범위 준수 | ✅ quickSort, mergeSort TDD(8개 테스트), ALGORITHM_MAP 연동, Vitest 환경 모두 완료 |
+| 예상 외 추가 작업 | 파스텔 색상 변경(52c9751) — 사용자 요청으로 Sprint 4 중에 추가됨 |
+| 코드 리뷰 이슈 | Important 1건 (I-1: mergeSort partial sorted 표시 오버헤드), Suggestion 2건 |
+| 미적용 이슈 | I-1은 후속 P1 animation helper 리팩토링에서 개선됨 |

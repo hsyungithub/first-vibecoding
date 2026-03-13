@@ -980,3 +980,43 @@ npm run dev
 - [Playwright 검증 보고서](sprint3/playwright-report.md)
 - [배포 체크리스트](sprint3/deploy.md)
 - [코드 리뷰 보고서](sprint3/code-review.md)
+
+---
+
+## 📊 실제 추적 기록
+
+### 작업 시간
+
+| 항목 | 시간 |
+|------|------|
+| 시작 | 2026-03-13 14:33 (Sprint 2 완료 직후) |
+| 첫 구현 커밋 | 2026-03-13 15:08 |
+| 종료 | 2026-03-13 15:21 (Sprint 3 마무리 완료) |
+| **실제 소요 시간** | **약 48분** |
+| 계획 소요 시간 | 미설정 |
+
+### 변경 통계 (`9a146af..ec6d7a1`)
+
+| 항목 | 수치 |
+|------|------|
+| 변경된 파일 수 | 22개 |
+| 추가된 라인 수 | +1,727줄 |
+| 삭제된 라인 수 | -58줄 |
+| 순 변경량 | +1,669줄 |
+
+### 주요 커밋
+
+| 해시 | 시각 | 메시지 |
+|------|------|--------|
+| `189a64f` | 15:08 | feat: Sprint 3 - 기본 정렬 알고리즘 3종 시각화 구현 |
+| `ec6d7a1` | 15:21 | docs: Sprint 3 마무리 - 검증 보고서 및 코드 리뷰 추가 |
+
+### 계획 대비 실제
+
+| 항목 | 내용 |
+|------|------|
+| 계획 범위 준수 | ✅ bubbleSort, selectionSort, insertionSort 모듈화, ALGORITHM_MAP 연동, completionAnimation 통합 완료 |
+| 예상 외 추가 작업 | Vitest 환경 구성(vitest.config.ts) 포함 — Sprint 4에서 처리 예정이었으나 Sprint 3에서 착수 |
+| 단위 테스트 상태 | vitest 환경 미구성으로 Sprint 3 시점엔 수동 검증, Sprint 4에서 완성 |
+| 코드 리뷰 이슈 | Important 1건 (I-1: 알고리즘 중 partial sorted 표시 불일치), Suggestion 2건 |
+| 미적용 이슈 | I-1 partial sorted는 후속 리팩토링(P1)에서 animation helper 도입으로 개선됨 |
