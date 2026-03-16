@@ -29,9 +29,15 @@ export default function TopNav({
   return (
     <nav className="bg-gray-100 dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 px-4 py-3 transition-colors">
       <div className="max-w-7xl mx-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-lg font-bold text-gray-900 dark:text-white whitespace-nowrap">
-          Sorting Algorithm Visualizer
-        </h1>
+        {/* 모바일: 타이틀과 ThemeToggle을 같은 행에 배치 */}
+        <div className="flex items-center justify-between">
+          <h1 className="text-lg font-bold text-gray-900 dark:text-white whitespace-nowrap">
+            Sorting Algorithm Visualizer
+          </h1>
+          <div className="sm:hidden">
+            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          </div>
+        </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
           <div className="flex items-center gap-2">
@@ -86,7 +92,10 @@ export default function TopNav({
             />
           </div>
 
-          <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          {/* 데스크탑에서만 표시 */}
+          <div className="hidden sm:block">
+            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          </div>
         </div>
       </div>
     </nav>
